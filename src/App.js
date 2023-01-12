@@ -1,4 +1,3 @@
-import { render } from '@testing-library/react';
 import { Component } from 'react';
 import ReactDOM from 'react-dom/client';
 import './App.css';
@@ -7,7 +6,6 @@ function App() {
   return (
     <div className="App">
       <Game />
-
     </div>
   );
 }
@@ -17,15 +15,15 @@ export default App;
 function SelectColumn(props) {
   return (
     <button className="selectColumn-button" onClick={props.onClick}>
-      click
-    </button>
+
+    </button >
   )
 }
 
 function DisplayHoles(props) {
   return (
-    <div className="displayHolesContainer">
-      <h1>0</h1>
+    <div className={props.className}>
+      <h1>{props.value}</h1>
     </div>
   )
 };
@@ -42,22 +40,14 @@ class Game extends Component {
       col6: [],
       col7: [],
       counter: true,
-      // y = yellow counter
+      //  = yellow counter
       // r = red counter
     }
   };
 
-  handleClick(i) {
-    const col1 = this.state.col1;
-    const col2 = this.state.col2;
-    const col3 = this.state.col3;
-    const col4 = this.state.col4;
-    const col5 = this.state.col5;
-    const col6 = this.state.col6;
-    const col7 = this.state.col7;
-
-    const newcol1 = col1.slice()
-    if (col1.length == 7) {
+  handleClickCol1(i) {
+    const newcol1 = this.state.col1.slice();
+    if (newcol1.length === 7) {
       alert('column full');
     } else {
       if (this.state.counter) {
@@ -80,104 +70,230 @@ class Game extends Component {
     }
   }
 
+  handleClickCol2(i) {
+    const newcol2 = this.state.col2.slice();
+    if (newcol2.length === 7) {
+      alert('column full');
+    } else {
+      if (this.state.counter) {
+        newcol2.push('y');
+        console.log(`new array is${newcol2}`)
+
+        this.setState({
+          col2: newcol2,
+          counter: !this.state.counter,
+        })
+      } else {
+        newcol2.push('r');
+        console.log(`new array is${newcol2}`)
+
+        this.setState({
+          col2: newcol2,
+          counter: !this.state.counter,
+        })
+      }
+    }
+  }
+
+  handleClickCol3(i) {
+    const newcol3 = this.state.col3.slice();
+    if (newcol3.length === 7) {
+      alert('column full');
+    } else {
+      if (this.state.counter) {
+        newcol3.push('y');
+        console.log(`new array is${newcol3}`)
+
+        this.setState({
+          col3: newcol3,
+          counter: !this.state.counter,
+        })
+      } else {
+        newcol3.push('r');
+        console.log(`new array is${newcol3}`)
+
+        this.setState({
+          col3: newcol3,
+          counter: !this.state.counter,
+        })
+      }
+    }
+  }
+
+  handleClickCol4(i) {
+    const newcol4 = this.state.col4.slice();
+    if (newcol4.length === 7) {
+      alert('column full');
+    } else {
+      if (this.state.counter) {
+        newcol4.push('y');
+        console.log(`new array is${newcol4}`)
+
+        this.setState({
+          col4: newcol4,
+          counter: !this.state.counter,
+        })
+      } else {
+        newcol4.push('r');
+        console.log(`new array is${newcol4}`)
+
+        this.setState({
+          col4: newcol4,
+          counter: !this.state.counter,
+        })
+      }
+    }
+  }
+
+  handleClickCol5(i) {
+    const newcol5 = this.state.col5.slice();
+    if (newcol5.length === 7) {
+      alert('column full');
+    } else {
+      if (this.state.counter) {
+        newcol5.push('y');
+        console.log(`new array is${newcol5}`)
+
+        this.setState({
+          col5: newcol5,
+          counter: !this.state.counter,
+        })
+      } else {
+        newcol5.push('r');
+        console.log(`new array is${newcol5}`)
+
+        this.setState({
+          col5: newcol5,
+          counter: !this.state.counter,
+        })
+      }
+    }
+  }
+
+  handleClickCol6(i) {
+    const newcol6 = this.state.col6.slice();
+    if (newcol6.length === 7) {
+      alert('column full');
+    } else {
+      if (this.state.counter) {
+        newcol6.push('y');
+        console.log(`new array is${newcol6}`)
+
+        this.setState({
+          col6: newcol6,
+          counter: !this.state.counter,
+        })
+      } else {
+        newcol6.push('r');
+        console.log(`new array is${newcol6}`)
+
+        this.setState({
+          col6: newcol6,
+          counter: !this.state.counter,
+        })
+      }
+    }
+  }
+
+  handleClickCol7(i) {
+    const newcol7 = this.state.col7.slice();
+    if (newcol7.length === 7) {
+      alert('column full');
+    } else {
+      if (this.state.counter) {
+        newcol7.push('y');
+        console.log(`new array is${newcol7}`)
+
+        this.setState({
+          col7: newcol7,
+          counter: !this.state.counter,
+        })
+      } else {
+        newcol7.push('r');
+        console.log(`new array is${newcol7}`)
+
+        this.setState({
+          col7: newcol7,
+          counter: !this.state.counter,
+        })
+      }
+    }
+  }
+
   render() {
     console.log('rendered game')
-    return (
-      <div>
-        <Board onClick={i => this.handleClick(i)} />
-      </div>
-    )
-  }
-}
 
-class Board extends Component {
-
-  displayHoles(i) {
-    return (
-      <DisplayHoles />
-    );
-  };
-
-  selectColumns(i) {
-    return (
-      <SelectColumn onClick={() => this.props.onClick(i)} />
-    );
-  };
-
-  render() {
     return (
       <div>
         <h2>Connect 4</h2>
-        <div>
-          {this.selectColumns(0)}
-        </div>
 
         <div>
-          {this.displayHoles(0)}
-          {this.displayHoles(1)}
-          {this.displayHoles(2)}
-          {this.displayHoles(3)}
-          {this.displayHoles(4)}
-          {this.displayHoles(5)}
-          {this.displayHoles(6)}
+          <SelectColumn onClick={i => this.handleClickCol1(i)} value={1} />
+          <SelectColumn onClick={i => this.handleClickCol2(i)} value={2} />
+          <SelectColumn onClick={i => this.handleClickCol3(i)} value={3} />
+          <SelectColumn onClick={i => this.handleClickCol4(i)} value={4} />
+          <SelectColumn onClick={i => this.handleClickCol5(i)} value={5} />
+          <SelectColumn onClick={i => this.handleClickCol6(i)} value={6} />
+          <SelectColumn onClick={i => this.handleClickCol7(i)} value={7} />
         </div>
-        {/* <div>
 
-          {this.displayHoles(7)}
-          {this.displayHoles(8)}
-          {this.displayHoles(9)}
-          {this.displayHoles(10)}
-          {this.displayHoles(11)}
-          {this.displayHoles(12)}
-          {this.displayHoles(13)}
+
+        <div className="counter-column-container">
+          <DisplayHoles value={this.state.col1[5]} className={this.state.col1[5] === 'y' ? "displayHolesContainerYellow" : "displayHolesContainerRed"} />
+          <DisplayHoles value={this.state.col2[5]} className={this.state.col2[5] === 'y' ? "displayHolesContainerYellow" : "displayHolesContainerRed"} />
+          <DisplayHoles value={this.state.col3[5]} className={this.state.col3[5] === 'y' ? "displayHolesContainerYellow" : "displayHolesContainerRed"} />
+          <DisplayHoles value={this.state.col4[5]} className={this.state.col4[5] === 'y' ? "displayHolesContainerYellow" : "displayHolesContainerRed"} />
+          <DisplayHoles value={this.state.col5[5]} className={this.state.col5[5] === 'y' ? "displayHolesContainerYellow" : "displayHolesContainerRed"} />
+          <DisplayHoles value={this.state.col6[5]} className={this.state.col6[5] === 'y' ? "displayHolesContainerYellow" : "displayHolesContainerRed"} />
+          <DisplayHoles value={this.state.col7[5]} className={this.state.col7[5] === 'y' ? "displayHolesContainerYellow" : "displayHolesContainerRed"} />
         </div>
-        <div>
-          {this.displayHoles(14)}
-          {this.displayHoles(15)}
-          {this.displayHoles(16)}
-          {this.displayHoles(17)}
-          {this.displayHoles(18)}
-          {this.displayHoles(19)}
-          {this.displayHoles(20)}
+        <div className="counter-column-container">
+          <DisplayHoles value={this.state.col1[4]} className={this.state.col1[4] === 'y' ? "displayHolesContainerYellow" : "displayHolesContainerRed"} />
+          <DisplayHoles value={this.state.col2[4]} className={this.state.col2[4] === 'y' ? "displayHolesContainerYellow" : "displayHolesContainerRed"} />
+          <DisplayHoles value={this.state.col3[4]} className={this.state.col3[4] === 'y' ? "displayHolesContainerYellow" : "displayHolesContainerRed"} />
+          <DisplayHoles value={this.state.col4[4]} className={this.state.col4[4] === 'y' ? "displayHolesContainerYellow" : "displayHolesContainerRed"} />
+          <DisplayHoles value={this.state.col5[4]} className={this.state.col5[4] === 'y' ? "displayHolesContainerYellow" : "displayHolesContainerRed"} />
+          <DisplayHoles value={this.state.col6[4]} className={this.state.col6[4] === 'y' ? "displayHolesContainerYellow" : "displayHolesContainerRed"} />
+          <DisplayHoles value={this.state.col7[4]} className={this.state.col7[4] === 'y' ? "displayHolesContainerYellow" : "displayHolesContainerRed"} />
         </div>
-        <div>
-          {this.displayHoles(21)}
-          {this.displayHoles(22)}
-          {this.displayHoles(23)}
-          {this.displayHoles(24)}
-          {this.displayHoles(25)}
-          {this.displayHoles(26)}
-          {this.displayHoles(27)}
+        <div className="counter-column-container">
+          <DisplayHoles value={this.state.col1[3]} className={this.state.col1[3] === 'y' ? "displayHolesContainerYellow" : "displayHolesContainerRed"} />
+          <DisplayHoles value={this.state.col2[3]} className={this.state.col2[3] === 'y' ? "displayHolesContainerYellow" : "displayHolesContainerRed"} />
+          <DisplayHoles value={this.state.col3[3]} className={this.state.col3[3] === 'y' ? "displayHolesContainerYellow" : "displayHolesContainerRed"} />
+          <DisplayHoles value={this.state.col4[3]} className={this.state.col4[3] === 'y' ? "displayHolesContainerYellow" : "displayHolesContainerRed"} />
+          <DisplayHoles value={this.state.col5[3]} className={this.state.col5[3] === 'y' ? "displayHolesContainerYellow" : "displayHolesContainerRed"} />
+          <DisplayHoles value={this.state.col6[3]} className={this.state.col6[3] === 'y' ? "displayHolesContainerYellow" : "displayHolesContainerRed"} />
+          <DisplayHoles value={this.state.col7[3]} className={this.state.col7[3] === 'y' ? "displayHolesContainerYellow" : "displayHolesContainerRed"} />
         </div>
-        <div>
-          {this.displayHoles(21)}
-          {this.displayHoles(22)}
-          {this.displayHoles(23)}
-          {this.displayHoles(24)}
-          {this.displayHoles(25)}
-          {this.displayHoles(26)}
-          {this.displayHoles(27)}
+        <div className="counter-column-container">
+          <DisplayHoles value={this.state.col1[2]} className={this.state.col1[2] === 'y' ? "displayHolesContainerYellow" : "displayHolesContainerRed"} />
+          <DisplayHoles value={this.state.col2[2]} className={this.state.col2[2] === 'y' ? "displayHolesContainerYellow" : "displayHolesContainerRed"} />
+          <DisplayHoles value={this.state.col3[2]} className={this.state.col3[2] === 'y' ? "displayHolesContainerYellow" : "displayHolesContainerRed"} />
+          <DisplayHoles value={this.state.col4[2]} className={this.state.col4[2] === 'y' ? "displayHolesContainerYellow" : "displayHolesContainerRed"} />
+          <DisplayHoles value={this.state.col5[2]} className={this.state.col5[2] === 'y' ? "displayHolesContainerYellow" : "displayHolesContainerRed"} />
+          <DisplayHoles value={this.state.col6[2]} className={this.state.col6[2] === 'y' ? "displayHolesContainerYellow" : "displayHolesContainerRed"} />
+          <DisplayHoles value={this.state.col7[2]} className={this.state.col7[2] === 'y' ? "displayHolesContainerYellow" : "displayHolesContainerRed"} />
         </div>
-        <div>
-          {this.displayHoles(21)}
-          {this.displayHoles(22)}
-          {this.displayHoles(23)}
-          {this.displayHoles(24)}
-          {this.displayHoles(25)}
-          {this.displayHoles(26)}
-          {this.displayHoles(27)}
+        <div className="counter-column-container">
+          <DisplayHoles value={this.state.col1[1]} className={this.state.col1[1] === 'y' ? "displayHolesContainerYellow" : "displayHolesContainerRed"} />
+          <DisplayHoles value={this.state.col2[1]} className={this.state.col2[1] === 'y' ? "displayHolesContainerYellow" : "displayHolesContainerRed"} />
+          <DisplayHoles value={this.state.col3[1]} className={this.state.col3[1] === 'y' ? "displayHolesContainerYellow" : "displayHolesContainerRed"} />
+          <DisplayHoles value={this.state.col4[1]} className={this.state.col4[1] === 'y' ? "displayHolesContainerYellow" : "displayHolesContainerRed"} />
+          <DisplayHoles value={this.state.col5[1]} className={this.state.col5[1] === 'y' ? "displayHolesContainerYellow" : "displayHolesContainerRed"} />
+          <DisplayHoles value={this.state.col6[1]} className={this.state.col6[1] === 'y' ? "displayHolesContainerYellow" : "displayHolesContainerRed"} />
+          <DisplayHoles value={this.state.col7[1]} className={this.state.col7[1] === 'y' ? "displayHolesContainerYellow" : "displayHolesContainerRed"} />
         </div>
-        <div>
-          {this.displayHoles(28)}
-          {this.displayHoles(29)}
-          {this.displayHoles(30)}
-          {this.displayHoles(31)}
-          {this.displayHoles(32)}
-          {this.displayHoles(33)}
-          {this.displayHoles(34)}
-      </div> */}
+        <div className="counter-column-container">
+          <DisplayHoles value={this.state.col1[0]} className={this.state.col1[0] === 'y' ? "displayHolesContainerYellow" : "displayHolesContainerRed"} />
+          <DisplayHoles value={this.state.col2[0]} className={this.state.col2[0] === 'y' ? "displayHolesContainerYellow" : "displayHolesContainerRed"} />
+          <DisplayHoles value={this.state.col3[0]} className={this.state.col3[0] === 'y' ? "displayHolesContainerYellow" : "displayHolesContainerRed"} />
+          <DisplayHoles value={this.state.col4[0]} className={this.state.col4[0] === 'y' ? "displayHolesContainerYellow" : "displayHolesContainerRed"} />
+          <DisplayHoles value={this.state.col5[0]} className={this.state.col5[0] === 'y' ? "displayHolesContainerYellow" : "displayHolesContainerRed"} />
+          <DisplayHoles value={this.state.col6[0]} className={this.state.col6[0] === 'y' ? "displayHolesContainerYellow" : "displayHolesContainerRed"} />
+          <DisplayHoles value={this.state.col7[0]} className={this.state.col7[0] === 'y' ? "displayHolesContainerYellow" : "displayHolesContainerRed"} />
+        </div>
+
       </div >
-
     )
   }
 }

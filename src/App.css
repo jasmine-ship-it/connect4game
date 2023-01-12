@@ -45,43 +45,74 @@
   width: 40px;
 }
 
-.displayHolesContainer {
-  display: flex;
+.displayHolesContainerRed {
+  display: inline;
   border-radius: 100%;
-  border: 1px solid;
-  height: 40px;
-  width: 40px;
+  border: 1px solid red;
+  height: 20px;
+  width: 20px;
   align-items: center;
-  font-size: 10px;
+  font-size: 0px;
   flex-direction: column;
-  padding: 5px;
-  line-height: 15px;
+  padding: 20px;
+  line-height: 60px;
+  margin-right: 10px;
+}
+
+.displayHolesContainerYellow {
+  display: inline;
+  border-radius: 100%;
+  border: 1px solid yellow;
+  height: 20px;
+  width: 20px;
+  align-items: center;
+  font-size: 0px;
+  flex-direction: column;
+  padding: 20px;
+  line-height: 60px;
+  margin-right: 10px;
+}
+
+.displayHolesContainer {
+  display: inline;
+  border-radius: 100%;
+  border: 1px solid black;
+  height: 20px;
+  width: 20px;
+  align-items: center;
+  font-size: 0px;
+  flex-direction: column;
+  padding: 20px;
+  line-height: 60px;
+  margin-right: 10px;
 }
 
 .selectColumn-button {
-  display: flex;
-  border-radius: 100%;
-  border: 1px solid;
-  height: 40px;
-  width: 40px;
+  display: inline;
+  border: 1px solid black;
+  height: 20px;
+  width: 20px;
   align-items: center;
   font-size: 10px;
   flex-direction: column;
-  padding: 5px;
-  line-height: 15px;
+  padding: 20px;
+  margin-right: 10px;
   opacity: 0%;
 }
 
 .selectColumn-button:hover {
-  display: flex;
-  border-radius: 100%;
-  border: 1px solid;
-  height: 40px;
-  width: 40px;
+  display: inline;
+  border: 0px solid;
+  height: 20px;
+  width: 5px;
   align-items: center;
   font-size: 10px;
   flex-direction: column;
-  padding: 5px;
-  line-height: 15px;
+  padding: 20px;
+  margin-right: 10px;
   opacity: 100%;
+}
+
+h1 {
+  display: inline;
 }
