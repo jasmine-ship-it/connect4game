@@ -32,7 +32,56 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
+}
+
+.hole-button {
+  border-radius: 100%;
+  border: 1px solid;
+  height: 40px;
+  width: 40px;
+}
+
+.displayHolesContainer {
+  display: flex;
+  border-radius: 100%;
+  border: 1px solid;
+  height: 40px;
+  width: 40px;
+  align-items: center;
+  font-size: 10px;
+  flex-direction: column;
+  padding: 5px;
+  line-height: 15px;
+}
+
+.selectColumn-button {
+  display: flex;
+  border-radius: 100%;
+  border: 1px solid;
+  height: 40px;
+  width: 40px;
+  align-items: center;
+  font-size: 10px;
+  flex-direction: column;
+  padding: 5px;
+  line-height: 15px;
+  opacity: 0%;
+}
+
+.selectColumn-button:hover {
+  display: flex;
+  border-radius: 100%;
+  border: 1px solid;
+  height: 40px;
+  width: 40px;
+  align-items: center;
+  font-size: 10px;
+  flex-direction: column;
+  padding: 5px;
+  line-height: 15px;
+  opacity: 100%;
 }
