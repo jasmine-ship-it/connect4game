@@ -26,6 +26,8 @@ function DisplayHoles(props) {
   );
 }
 
+const NUM_ROWS = 6;
+
 class Game extends Component {
   constructor(props) {
     super(props);
@@ -46,7 +48,7 @@ class Game extends Component {
   }
 
   handleClickCol(index) {
-    const columnCopy = this.state.columns[index].slice();
+    const columnCopy = (this.state.columns[index]).slice();
 
     if (columnCopy.length === 7) {
       alert("column full");
@@ -61,7 +63,7 @@ class Game extends Component {
     console.log(`new array is${columnCopy}`);
 
     this.setState({
-      columns: this.state.columns.map((column, idx) => {
+      columns: (this.state.columns).map((column, idx) => {
         // map through columns
         if (idx === index) {
           // where column === column[index] -> replace with columnCopy
@@ -82,15 +84,94 @@ class Game extends Component {
         <h2>Connect 4</h2>
 
         <div>
-          {this.columns.map((column, index) => (
+          {this.state.columns.map((column, index) => (
             <SelectColumn
               key={index}
               onClick={() => this.handleClickCol(index)}
             />
           ))}
         </div>
+        {Array(NUM_ROWS).map((row, rowIndex) =>
+          <div key={rowIndex} className="counter-column-container">
+            {this.state.columns.map((column, columnIndex) => {
+              console.log({ row });
+              const currentHole = this.state.columns[columnIndex][NUM_ROWS - (rowIndex + 1)];
+              const correctDisplayHolesContainer = currentHole === "y" ? "displayHolesContainerYellow" : "displayHolesContainer";
+              return (
+                <DisplayHoles
+                  key={`${columnIndex}${rowIndex}`}
+                  value={currentHole}
+                  className={correctDisplayHolesContainer}
+                />
+              )
+            })}
 
+
+
+          </div>
+
+
+        )
+        }
+        {/* 
+        <div>
+          {this.state.columns.map((column, index) => (
+            (
+              <div key={index} >
+                <DisplayHoles
+                  value={index}
+                  className={
+                    this.state.columns[0][1] === "y"
+                      ? "displayHolesContainerYellow"
+                      : "displayHolesContainerRed"
+                  }
+                />
+              </div>
+            ))
+          )}
+
+        </div> */}
+        {/* column.map((row,index)=>(
+                <DisplayHoles /> ) */}
+
+        {/* <div className="counter-column-container">
+          <DisplayHoles
+            value={1}
+            className={
+              this.state.columns[0][1] === "y"
+                ? "displayHolesContainerYellow"
+                : "displayHolesContainerRed"
+            }
+          />
+          <DisplayHoles
+            value={3}
+            className={
+              this.state.columns[1][1] === "y"
+                ? "displayHolesContainerYellow"
+                : "displayHolesContainerRed"
+            }
+          />
+
+        </div>
         <div className="counter-column-container">
+          <DisplayHoles
+            value={2}
+            className={
+              this.state.columns[0][2] === "y"
+                ? "displayHolesContainerYellow"
+                : "displayHolesContainerRed"
+            }
+          />
+        </div> */}
+      </div>
+    );
+  }
+}
+
+
+
+// copy of previous code
+{/* <div className="counter-column-container">
           <DisplayHoles
             value={this.state.col1[5]}
             className={
@@ -437,8 +518,4 @@ class Game extends Component {
                 : "displayHolesContainerRed"
             }
           />
-        </div>
-      </div>
-    );
-  }
-}
+        </div> */}
