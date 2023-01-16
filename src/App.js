@@ -64,6 +64,8 @@ const indexOfFoundLast=columnCurrent.lastIndexOf(foundLast);
 console.log(`the foundLast value is ${foundLast}`);
 console.log(`the indexOfFoundLast value is ${indexOfFoundLast}`);
 
+
+
     if (columnCurrent[indexOfFoundLast] === 6) {
       alert("column slot is full");
     } else {
@@ -74,12 +76,14 @@ console.log(`the indexOfFoundLast value is ${indexOfFoundLast}`);
         columnCurrent[indexOfFoundLast+1]='r'
       }
     }
+// new board to be updated
+const updateBoard = [...this.state.board]
+updateBoard[index]=columnCurrent
 
     console.log(`new column array is${columnCurrent}`);
 // update a single array within an array.
     this.setState({
-      board: this.state.board[index]=columnCurrent
-  ,
+      board: updateBoard,
       counter: !this.state.counter,
     });
   }
@@ -99,36 +103,10 @@ console.log(`the indexOfFoundLast value is ${indexOfFoundLast}`);
             />
           ))}
         </div>
-        <div className="container" >
+       <div>
+        
+       </div>
 
-          {/* {[...Array(NUM_ROWS)].map((row, rowIndex) => (
-            <div key={rowIndex}>
-              {this.state.columns.map((column, columnIndex) => {
-                console.log({ row });
-
-                const currentHole =
-                  this.state.columns[columnIndex][NUM_ROWS - (rowIndex + 1)];
-
-                const correctDisplayHolesContainer =
-                  currentHole === "y"
-                    ? "displayHolesContainerYellow"
-                    : currentHole === "r"
-                      ? "displayHolesContainerRed"
-                      : "displayHolesContainer";
-
-                return (
-
-                  // <DisplayHoles
-                  //   key={`${columnIndex}${rowIndex}`}
-                  //   value={currentHole}
-                  //   className={correctDisplayHolesContainer}
-                  // />
-
-                );
-              })}
-            </div>
-          ))} */}
-        </div>
       </div>
     );
   }
