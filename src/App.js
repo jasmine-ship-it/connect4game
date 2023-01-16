@@ -26,21 +26,31 @@ function DisplayHoles(props) {
   );
 }
 
+function DisplayColumnContainer(props) {
+  return (
+    <div className={props.className}>
+      <h1>{props.value}</h1>
+    </div>
+  );
+}
+
 const NUM_ROWS = 6;
+const NUM_COLUMNS = 7;
 
 class Game extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      columns: [[], [], [], [], [], [], []],
-      // board: [
-      //   [null, null, null, null, null, null, null],
-      //   [null, null, null, null, null, null, null],
-      //   [null, null, null, null, null, null, null],
-      //   [null, null, null, null, null, null, null],
-      //   [null, null, null, null, null, null, null],
-      //   [null, null, null, null, null, null, null],
-      // ],
+      // columns: [[], [], [], [], [], [], []],
+      board: [
+        [null, null, null, null, null, null],
+        [null, null, null, null, null, null],
+        [null, null, null, null, null, null],
+        [null, null, null, null, null, null],
+        [null, null, null, null, null, null],
+        [null, null, null, null, null, null],
+        [null, null, null, null, null, null],
+      ],
       counter: true,
       //  = yellow counter
       // r = red counter
@@ -48,30 +58,28 @@ class Game extends Component {
   }
 
   handleClickCol(index) {
-    const columnCopy = this.state.columns[index].slice();
+    const columnCurrent = this.state.board[index].slice();
+    const foundLast = columnCurrent.findLast((val) => val !== null);
+const indexOfFoundLast=columnCurrent.lastIndexOf(foundLast);
+console.log(`the foundLast value is ${foundLast}`);
+console.log(`the indexOfFoundLast value is ${indexOfFoundLast}`);
 
-    if (columnCopy.length === 7) {
-      alert("column full");
+    if (columnCurrent[indexOfFoundLast] === 6) {
+      alert("column slot is full");
     } else {
       if (this.state.counter) {
-        columnCopy.push("y");
+        columnCurrent[indexOfFoundLast+1]='y';
+  
       } else {
-        columnCopy.push("r");
+        columnCurrent[indexOfFoundLast+1]='r'
       }
     }
 
-    console.log(`new array is${columnCopy}`);
-
+    console.log(`new column array is${columnCurrent}`);
+// update a single array within an array.
     this.setState({
-      columns: this.state.columns.map((column, idx) => {
-        // map through columns
-        if (idx === index) {
-          // where column === column[index] -> replace with columnCopy
-          return columnCopy;
-        } else {
-          return column; // where current column !== column[index] - copy as is
-        }
-      }),
+      board: this.state.board[index]=columnCurrent
+  ,
       counter: !this.state.counter,
     });
   }
@@ -84,39 +92,43 @@ class Game extends Component {
         <h2>Connect 4</h2>
 
         <div>
-          {this.state.columns.map((column, index) => (
+          {this.state.board.map((column, index) => (
             <SelectColumn
               key={index}
               onClick={() => this.handleClickCol(index)}
             />
           ))}
         </div>
+        <div className="container" >
 
-        {[...Array(NUM_ROWS)].map((row, rowIndex) => (
-          <div key={rowIndex} className="counter-column-container">
-            {this.state.columns.map((column, columnIndex) => {
-              console.log({ row });
+          {/* {[...Array(NUM_ROWS)].map((row, rowIndex) => (
+            <div key={rowIndex}>
+              {this.state.columns.map((column, columnIndex) => {
+                console.log({ row });
 
-              const currentHole =
-                this.state.columns[columnIndex][NUM_ROWS - (rowIndex + 1)];
+                const currentHole =
+                  this.state.columns[columnIndex][NUM_ROWS - (rowIndex + 1)];
 
-              const correctDisplayHolesContainer =
-                currentHole === "y"
-                  ? "displayHolesContainerYellow"
-                  : currentHole === "r"
-                  ? "displayHolesContainerRed"
-                  : "displayHolesContainer";
+                const correctDisplayHolesContainer =
+                  currentHole === "y"
+                    ? "displayHolesContainerYellow"
+                    : currentHole === "r"
+                      ? "displayHolesContainerRed"
+                      : "displayHolesContainer";
 
-              return (
-                <DisplayHoles
-                  key={`${columnIndex}${rowIndex}`}
-                  value={currentHole}
-                  className={correctDisplayHolesContainer}
-                />
-              );
-            })}
-          </div>
-        ))}
+                return (
+
+                  // <DisplayHoles
+                  //   key={`${columnIndex}${rowIndex}`}
+                  //   value={currentHole}
+                  //   className={correctDisplayHolesContainer}
+                  // />
+
+                );
+              })}
+            </div>
+          ))} */}
+        </div>
       </div>
     );
   }
