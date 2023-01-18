@@ -1,5 +1,5 @@
 import { Component } from "react";
-import ReactDOM from "react-dom/client";
+// import ReactDOM from "react-dom/client";
 import "./App.css";
 
 function App() {
@@ -18,21 +18,13 @@ function SelectColumn(props) {
   );
 }
 
-function DisplayHoles(props) {
-  return (
-    <div className={props.className}>
-      <h1>{props.value}</h1>
-    </div>
-  );
-}
-
-function DisplayColumnContainer(props) {
-  return (
-    <div className={props.className}>
-      <h1>{props.value}</h1>
-    </div>
-  );
-}
+// function DisplayHoles(props) {
+//   return (
+//     <div className={props.className}>
+//       <h1>{props.value}</h1>
+//     </div>
+//   );
+// }
 
 const NUM_ROWS = 6;
 const NUM_COLUMNS = 7;
@@ -55,18 +47,44 @@ class Game extends Component {
       //  = yellow counter
       // r = red counter
     };
-  }
+  };
 
-  handleClickCol(index) {
-    const columnCurrent = this.state.board[index].slice();
+  renderDisplayHoles(rowIndex){
+    
+    const columnArray=[...Array(NUM_COLUMNS)];
+    const boardDisplay = this.state.board.slice();
+
+    for(let colIndex=0;colIndex<NUM_COLUMNS;colIndex++){
+      const currentHole=boardDisplay[colIndex][rowIndex];
+
+      const correctDisplayHolesContainer=
+      currentHole==='y'
+      ?'displayHolesContainerYellow'
+      : currentHole ==='r'
+      ?'displayHolesContainerRed'
+      :'displayHolesContainer';
+      
+      console.log(`the currentHole is ${currentHole} for colIndex ${colIndex}rowIndex${rowIndex}`);
+      
+      columnArray.map((col,colIndex)=>{
+        return(
+          <div
+          key={`${colIndex}${rowIndex}`}
+          className={correctDisplayHolesContainer}>
+            {currentHole}
+          </div>
+        )
+      })
+    }
+  }
+   
+
+  handleClickCol(colIndex) {
+    const columnCurrent = this.state.board[colIndex].slice();
     const foundLast = columnCurrent.findLast((val) => val !== null);
 const indexOfFoundLast=columnCurrent.lastIndexOf(foundLast);
-console.log(`the foundLast value is ${foundLast}`);
-console.log(`the indexOfFoundLast value is ${indexOfFoundLast}`);
 
-
-
-    if (columnCurrent[indexOfFoundLast] === 6) {
+    if (columnCurrent.length > 6) {
       alert("column slot is full");
     } else {
       if (this.state.counter) {
@@ -74,19 +92,26 @@ console.log(`the indexOfFoundLast value is ${indexOfFoundLast}`);
   
       } else {
         columnCurrent[indexOfFoundLast+1]='r'
-      }
-    }
+      };
+    };
 // new board to be updated
-const updateBoard = [...this.state.board]
-updateBoard[index]=columnCurrent
+const updateBoard = [...this.state.board];
+updateBoard[colIndex]=columnCurrent;
 
-    console.log(`new column array is${columnCurrent}`);
+    // console.log(`new column array is${columnCurrent}`);
+    // console.log(`new board is (col0) ${updateBoard[0]}`)
+    // console.log(`new board is (col1)${updateBoard[1]}`)
+    // console.log(`new board is (col2)${updateBoard[2]}`)
+    // console.log(`new board is (col3)${updateBoard[3]}`)
+    // console.log(`new board is (col4)${updateBoard[4]}`)
+    // console.log(`new board is (col5)${updateBoard[5]}`)
+    // console.log(`new board is (col6)${updateBoard[6]}`)
 // update a single array within an array.
     this.setState({
       board: updateBoard,
       counter: !this.state.counter,
     });
-  }
+  };
 
   render() {
     console.log("rendered game");
@@ -96,15 +121,24 @@ updateBoard[index]=columnCurrent
         <h2>Connect 4</h2>
 
         <div>
-          {this.state.board.map((column, index) => (
+          {this.state.board.map((col, colIndex) => (
             <SelectColumn
-              key={index}
-              onClick={() => this.handleClickCol(index)}
+              key={colIndex}
+              onClick={() => this.handleClickCol(colIndex)}
             />
           ))}
         </div>
        <div>
-        
+        {[...Array(NUM_ROWS)].map((row,rowIndex)=>{
+          return(
+            <div key={rowIndex} className="row-container">
+             {this.renderDisplayHoles(rowIndex)}
+              {console.log(`the Array rowIndex is ${rowIndex}`)}
+              
+             </div>
+          );
+        }
+        )}
        </div>
 
       </div>

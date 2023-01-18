@@ -118,6 +118,11 @@ h1 {
   display: inline;
 }
 
-.container{
-  
+.row-container{
+  display:flex;
+  border: 1px solid black;
+  height:100px;
+  width:50%;
+  align-items:center;
+  opacity:100%
 }
