@@ -38,11 +38,18 @@
   }
 }
 
-.hole-button {
+.displayHolesContainer {
+  display: inline;
   border-radius: 100%;
-  border: 1px solid;
-  height: 40px;
-  width: 40px;
+  border: 1px solid grey;
+  height: 20px;
+  width: 20px;
+  align-items: center;
+  font-size: 0px;
+  flex-direction: column;
+  padding: 20px;
+  line-height: 60px;
+  margin-right: 10px;
 }
 
 .displayHolesContainerRed {
@@ -52,7 +59,7 @@
   height: 20px;
   width: 20px;
   align-items: center;
-  font-size: 10px;
+  font-size: 0px;
   flex-direction: column;
   padding: 20px;
   line-height: 60px;
@@ -66,21 +73,7 @@
   height: 20px;
   width: 20px;
   align-items: center;
-  font-size: 10px;
-  flex-direction: column;
-  padding: 20px;
-  line-height: 60px;
-  margin-right: 10px;
-}
-
-.displayHolesContainer {
-  display: inline;
-  border-radius: 100%;
-  border: 1px solid black;
-  height: 20px;
-  width: 20px;
-  align-items: center;
-  font-size: 10px;
+  font-size: 0px;
   flex-direction: column;
   padding: 20px;
   line-height: 60px;
@@ -90,17 +83,18 @@
 .selectColumn-button {
   display: inline;
   border: 1px solid black;
-  height: 20px;
-  width: 20px;
+  height: 40px;
+  width: 40px;
   align-items: center;
-  font-size: 10px;
+  font-size: 0px;
   flex-direction: column;
-  padding: 20px;
-  margin-right: 10px;
-  opacity: 100%;
+  padding: 25px;
+  margin-right: 20px;
+  opacity: 0%;
+
 }
 
-/* .selectColumn-button:hover {
+.selectColumn-button:hover {
   display: inline;
   border: 0px solid;
   height: 20px;
@@ -111,8 +105,39 @@
   padding: 20px;
   margin-right: 10px;
   opacity: 100%;
-} */
+}
 
-h1 {
+h1,h2 {
   display: inline;
+  color: black;
+}
+.title-frame{
+  padding-top:10px;
+}
+
+.row-container{
+  display:flex;
+  height:100px;
+  width:100%;
+  align-items:center;
+  padding-left: 25%;
+}
+
+.select-frame{
+  display:flex;
+  height:10px;
+  width:100%;
+  align-items:center;
+  opacity:100%;
+  padding: 25px 37.5%;
+}
+
+.board-frame{
+  display:flex;
+  flex-direction:column;
+  flex-wrap: wrap;
+  /* height:100px; */
+  align-items:center;
+  opacity:100%;
+  padding: 0% 25%;
 }

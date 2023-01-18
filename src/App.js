@@ -1,5 +1,5 @@
 import { Component } from "react";
-import ReactDOM from "react-dom/client";
+// import ReactDOM from "react-dom/client";
 import "./App.css";
 
 function App() {
@@ -18,504 +18,116 @@ function SelectColumn(props) {
   );
 }
 
-function DisplayHoles(props) {
-  return (
-    <div className={props.className}>
-      <h1>{props.value}</h1>
-    </div>
-  );
-}
-
 const NUM_ROWS = 6;
+const NUM_COLUMNS = 7;
 
 class Game extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      columns: [[], [], [], [], [], [], []],
-      // board: [
-      //   [null, null, null, null, null, null, null],
-      //   [null, null, null, null, null, null, null],
-      //   [null, null, null, null, null, null, null],
-      //   [null, null, null, null, null, null, null],
-      //   [null, null, null, null, null, null, null],
-      //   [null, null, null, null, null, null, null],
-      // ],
+      // columns: [[], [], [], [], [], [], []],
+      board: [
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0],
+      ],
       counter: true,
       //  = yellow counter
       // r = red counter
     };
+  };
+
+  renderDisplayHoles(rowIndex){
+    
+    const columnArray=[...Array(NUM_COLUMNS)];
+    const boardDisplay = this.state.board.slice();
+
+      
+      
+    return columnArray.map((col,colIndex)=>{
+      const currentHole=boardDisplay[colIndex][rowIndex];
+      const correctDisplayHolesContainer=
+      currentHole==='y'
+      ?'displayHolesContainerYellow'
+      : currentHole ==='r'
+      ?'displayHolesContainerRed'
+      :'displayHolesContainer'
+
+      console.log(`colIndex is ${colIndex}`)
+      return(
+        <div
+        key={`${colIndex}${rowIndex}`}
+        className={correctDisplayHolesContainer}>
+          {boardDisplay[colIndex][rowIndex]}
+        </div>
+      )
+    })
   }
+   
 
-  handleClickCol(index) {
-    const columnCopy = (this.state.columns[index]).slice();
+  handleClickCol(colIndex) {
+    const columnCurrent = this.state.board[colIndex].slice();
+    const foundLast = columnCurrent.findLast((val) => val !== 0);
+const indexOfFoundLast=columnCurrent.lastIndexOf(foundLast);
 
-    if (columnCopy.length === 7) {
-      alert("column full");
+    if (columnCurrent.length > 6) {
+      alert("column slot is full");
     } else {
       if (this.state.counter) {
-        columnCopy.push("y");
+        columnCurrent[indexOfFoundLast+1]='y';
+  
       } else {
-        columnCopy.push("r");
-      }
-    }
+        columnCurrent[indexOfFoundLast+1]='r'
+      };
+    };
+// new board to be updated
+const updateBoard = [...this.state.board];
+updateBoard[colIndex]=columnCurrent;
 
-    console.log(`new array is${columnCopy}`);
-
+// update a single array within an array.
     this.setState({
-      columns: (this.state.columns).map((column, idx) => {
-        // map through columns
-        if (idx === index) {
-          // where column === column[index] -> replace with columnCopy
-          return columnCopy;
-        } else {
-          return column; // where current column !== column[index] - copy as is
-        }
-      }),
+      board: updateBoard,
       counter: !this.state.counter,
     });
-  }
+  };
 
   render() {
     console.log("rendered game");
 
     return (
       <div>
+        <div className="title-frame">
         <h2>Connect 4</h2>
+        </div>
 
-        <div>
-          {this.state.columns.map((column, index) => (
+        <div className="select-frame">
+          {this.state.board.map((col, colIndex) => (
             <SelectColumn
-              key={index}
-              onClick={() => this.handleClickCol(index)}
+              key={colIndex}
+              onClick={() => this.handleClickCol(colIndex)}
             />
           ))}
         </div>
-        {Array(NUM_ROWS).map((row, rowIndex) =>
-          <div key={rowIndex} className="counter-column-container">
-            {this.state.columns.map((column, columnIndex) => {
-              console.log({ row });
-              const currentHole = this.state.columns[columnIndex][NUM_ROWS - (rowIndex + 1)];
-              const correctDisplayHolesContainer = currentHole === "y" ? "displayHolesContainerYellow" : "displayHolesContainer";
-              return (
-                <DisplayHoles
-                  key={`${columnIndex}${rowIndex}`}
-                  value={currentHole}
-                  className={correctDisplayHolesContainer}
-                />
-              )
-            })}
-
-
-
-          </div>
-
-
-        )
+        
+       <div className="board-frame">
+        {([...Array(NUM_ROWS)].map((row,rowIndex)=>{
+          return(
+            <div key={rowIndex} className="row-container">
+             {this.renderDisplayHoles(rowIndex)}
+              {console.log(`the Array rowIndex is ${rowIndex}`)}
+             </div>
+          )
         }
-        {/* 
-        <div>
-          {this.state.columns.map((column, index) => (
-            (
-              <div key={index} >
-                <DisplayHoles
-                  value={index}
-                  className={
-                    this.state.columns[0][1] === "y"
-                      ? "displayHolesContainerYellow"
-                      : "displayHolesContainerRed"
-                  }
-                />
-              </div>
-            ))
-          )}
+        )).reverse()}
+       </div>
 
-        </div> */}
-        {/* column.map((row,index)=>(
-                <DisplayHoles /> ) */}
-
-        {/* <div className="counter-column-container">
-          <DisplayHoles
-            value={1}
-            className={
-              this.state.columns[0][1] === "y"
-                ? "displayHolesContainerYellow"
-                : "displayHolesContainerRed"
-            }
-          />
-          <DisplayHoles
-            value={3}
-            className={
-              this.state.columns[1][1] === "y"
-                ? "displayHolesContainerYellow"
-                : "displayHolesContainerRed"
-            }
-          />
-
-        </div>
-        <div className="counter-column-container">
-          <DisplayHoles
-            value={2}
-            className={
-              this.state.columns[0][2] === "y"
-                ? "displayHolesContainerYellow"
-                : "displayHolesContainerRed"
-            }
-          />
-        </div> */}
-      </div>
+</div>
+  
+    
     );
   }
 }
-
-
-
-// copy of previous code
-{/* <div className="counter-column-container">
-          <DisplayHoles
-            value={this.state.col1[5]}
-            className={
-              this.state.col1[5] === "y"
-                ? "displayHolesContainerYellow"
-                : "displayHolesContainerRed"
-            }
-          />
-          <DisplayHoles
-            value={this.state.col2[5]}
-            className={
-              this.state.col2[5] === "y"
-                ? "displayHolesContainerYellow"
-                : "displayHolesContainerRed"
-            }
-          />
-          <DisplayHoles
-            value={this.state.col3[5]}
-            className={
-              this.state.col3[5] === "y"
-                ? "displayHolesContainerYellow"
-                : "displayHolesContainerRed"
-            }
-          />
-          <DisplayHoles
-            value={this.state.col4[5]}
-            className={
-              this.state.col4[5] === "y"
-                ? "displayHolesContainerYellow"
-                : "displayHolesContainerRed"
-            }
-          />
-          <DisplayHoles
-            value={this.state.col5[5]}
-            className={
-              this.state.col5[5] === "y"
-                ? "displayHolesContainerYellow"
-                : "displayHolesContainerRed"
-            }
-          />
-          <DisplayHoles
-            value={this.state.col6[5]}
-            className={
-              this.state.col6[5] === "y"
-                ? "displayHolesContainerYellow"
-                : "displayHolesContainerRed"
-            }
-          />
-          <DisplayHoles
-            value={this.state.col7[5]}
-            className={
-              this.state.col7[5] === "y"
-                ? "displayHolesContainerYellow"
-                : "displayHolesContainerRed"
-            }
-          />
-        </div>
-        <div className="counter-column-container">
-          <DisplayHoles
-            value={this.state.col1[4]}
-            className={
-              this.state.col1[4] === "y"
-                ? "displayHolesContainerYellow"
-                : "displayHolesContainerRed"
-            }
-          />
-          <DisplayHoles
-            value={this.state.col2[4]}
-            className={
-              this.state.col2[4] === "y"
-                ? "displayHolesContainerYellow"
-                : "displayHolesContainerRed"
-            }
-          />
-          <DisplayHoles
-            value={this.state.col3[4]}
-            className={
-              this.state.col3[4] === "y"
-                ? "displayHolesContainerYellow"
-                : "displayHolesContainerRed"
-            }
-          />
-          <DisplayHoles
-            value={this.state.col4[4]}
-            className={
-              this.state.col4[4] === "y"
-                ? "displayHolesContainerYellow"
-                : "displayHolesContainerRed"
-            }
-          />
-          <DisplayHoles
-            value={this.state.col5[4]}
-            className={
-              this.state.col5[4] === "y"
-                ? "displayHolesContainerYellow"
-                : "displayHolesContainerRed"
-            }
-          />
-          <DisplayHoles
-            value={this.state.col6[4]}
-            className={
-              this.state.col6[4] === "y"
-                ? "displayHolesContainerYellow"
-                : "displayHolesContainerRed"
-            }
-          />
-          <DisplayHoles
-            value={this.state.col7[4]}
-            className={
-              this.state.col7[4] === "y"
-                ? "displayHolesContainerYellow"
-                : "displayHolesContainerRed"
-            }
-          />
-        </div>
-        <div className="counter-column-container">
-          <DisplayHoles
-            value={this.state.col1[3]}
-            className={
-              this.state.col1[3] === "y"
-                ? "displayHolesContainerYellow"
-                : "displayHolesContainerRed"
-            }
-          />
-          <DisplayHoles
-            value={this.state.col2[3]}
-            className={
-              this.state.col2[3] === "y"
-                ? "displayHolesContainerYellow"
-                : "displayHolesContainerRed"
-            }
-          />
-          <DisplayHoles
-            value={this.state.col3[3]}
-            className={
-              this.state.col3[3] === "y"
-                ? "displayHolesContainerYellow"
-                : "displayHolesContainerRed"
-            }
-          />
-          <DisplayHoles
-            value={this.state.col4[3]}
-            className={
-              this.state.col4[3] === "y"
-                ? "displayHolesContainerYellow"
-                : "displayHolesContainerRed"
-            }
-          />
-          <DisplayHoles
-            value={this.state.col5[3]}
-            className={
-              this.state.col5[3] === "y"
-                ? "displayHolesContainerYellow"
-                : "displayHolesContainerRed"
-            }
-          />
-          <DisplayHoles
-            value={this.state.col6[3]}
-            className={
-              this.state.col6[3] === "y"
-                ? "displayHolesContainerYellow"
-                : "displayHolesContainerRed"
-            }
-          />
-          <DisplayHoles
-            value={this.state.col7[3]}
-            className={
-              this.state.col7[3] === "y"
-                ? "displayHolesContainerYellow"
-                : "displayHolesContainerRed"
-            }
-          />
-        </div>
-        <div className="counter-column-container">
-          <DisplayHoles
-            value={this.state.col1[2]}
-            className={
-              this.state.col1[2] === "y"
-                ? "displayHolesContainerYellow"
-                : "displayHolesContainerRed"
-            }
-          />
-          <DisplayHoles
-            value={this.state.col2[2]}
-            className={
-              this.state.col2[2] === "y"
-                ? "displayHolesContainerYellow"
-                : "displayHolesContainerRed"
-            }
-          />
-          <DisplayHoles
-            value={this.state.col3[2]}
-            className={
-              this.state.col3[2] === "y"
-                ? "displayHolesContainerYellow"
-                : "displayHolesContainerRed"
-            }
-          />
-          <DisplayHoles
-            value={this.state.col4[2]}
-            className={
-              this.state.col4[2] === "y"
-                ? "displayHolesContainerYellow"
-                : "displayHolesContainerRed"
-            }
-          />
-          <DisplayHoles
-            value={this.state.col5[2]}
-            className={
-              this.state.col5[2] === "y"
-                ? "displayHolesContainerYellow"
-                : "displayHolesContainerRed"
-            }
-          />
-          <DisplayHoles
-            value={this.state.col6[2]}
-            className={
-              this.state.col6[2] === "y"
-                ? "displayHolesContainerYellow"
-                : "displayHolesContainerRed"
-            }
-          />
-          <DisplayHoles
-            value={this.state.col7[2]}
-            className={
-              this.state.col7[2] === "y"
-                ? "displayHolesContainerYellow"
-                : "displayHolesContainerRed"
-            }
-          />
-        </div>
-        <div className="counter-column-container">
-          <DisplayHoles
-            value={this.state.col1[1]}
-            className={
-              this.state.col1[1] === "y"
-                ? "displayHolesContainerYellow"
-                : "displayHolesContainerRed"
-            }
-          />
-          <DisplayHoles
-            value={this.state.col2[1]}
-            className={
-              this.state.col2[1] === "y"
-                ? "displayHolesContainerYellow"
-                : "displayHolesContainerRed"
-            }
-          />
-          <DisplayHoles
-            value={this.state.col3[1]}
-            className={
-              this.state.col3[1] === "y"
-                ? "displayHolesContainerYellow"
-                : "displayHolesContainerRed"
-            }
-          />
-          <DisplayHoles
-            value={this.state.col4[1]}
-            className={
-              this.state.col4[1] === "y"
-                ? "displayHolesContainerYellow"
-                : "displayHolesContainerRed"
-            }
-          />
-          <DisplayHoles
-            value={this.state.col5[1]}
-            className={
-              this.state.col5[1] === "y"
-                ? "displayHolesContainerYellow"
-                : "displayHolesContainerRed"
-            }
-          />
-          <DisplayHoles
-            value={this.state.col6[1]}
-            className={
-              this.state.col6[1] === "y"
-                ? "displayHolesContainerYellow"
-                : "displayHolesContainerRed"
-            }
-          />
-          <DisplayHoles
-            value={this.state.col7[1]}
-            className={
-              this.state.col7[1] === "y"
-                ? "displayHolesContainerYellow"
-                : "displayHolesContainerRed"
-            }
-          />
-        </div>
-        <div className="counter-column-container">
-          <DisplayHoles
-            value={this.state.col1[0]}
-            className={
-              this.state.col1[0] === "y"
-                ? "displayHolesContainerYellow"
-                : "displayHolesContainerRed"
-            }
-          />
-          <DisplayHoles
-            value={this.state.col2[0]}
-            className={
-              this.state.col2[0] === "y"
-                ? "displayHolesContainerYellow"
-                : "displayHolesContainerRed"
-            }
-          />
-          <DisplayHoles
-            value={this.state.col3[0]}
-            className={
-              this.state.col3[0] === "y"
-                ? "displayHolesContainerYellow"
-                : "displayHolesContainerRed"
-            }
-          />
-          <DisplayHoles
-            value={this.state.col4[0]}
-            className={
-              this.state.col4[0] === "y"
-                ? "displayHolesContainerYellow"
-                : "displayHolesContainerRed"
-            }
-          />
-          <DisplayHoles
-            value={this.state.col5[0]}
-            className={
-              this.state.col5[0] === "y"
-                ? "displayHolesContainerYellow"
-                : "displayHolesContainerRed"
-            }
-          />
-          <DisplayHoles
-            value={this.state.col6[0]}
-            className={
-              this.state.col6[0] === "y"
-                ? "displayHolesContainerYellow"
-                : "displayHolesContainerRed"
-            }
-          />
-          <DisplayHoles
-            value={this.state.col7[0]}
-            className={
-              this.state.col7[0] === "y"
-                ? "displayHolesContainerYellow"
-                : "displayHolesContainerRed"
-            }
-          />
-        </div> */}
