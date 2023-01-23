@@ -2,40 +2,28 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  background-color: white;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.yesNoContainer {
+  padding-top: 10%;
+  /* align-items: center; */
+  height: 50px;
+  width: 100px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.yesNoContainer:hover {
+  border: 2px solid grey;
+  font-size: 0px;
+  opacity: 50%;
+}
+
+.resetGame-button {
+  border: 1px solid black;
+  border-radius: 10%;
   color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
+  background-color: grey;
 }
 
 .displayHolesContainer {
@@ -55,7 +43,8 @@
 .displayHolesContainerRed {
   display: inline;
   border-radius: 100%;
-  border: 1px solid red;
+  border: 1px solid black;
+  background-color: red;
   height: 20px;
   width: 20px;
   align-items: center;
@@ -69,7 +58,8 @@
 .displayHolesContainerYellow {
   display: inline;
   border-radius: 100%;
-  border: 1px solid yellow;
+  border: 1px solid black;
+  background-color: yellow;
   height: 20px;
   width: 20px;
   align-items: center;
@@ -81,63 +71,54 @@
 }
 
 .selectColumn-button {
-  display: inline;
-  border: 1px solid black;
-  height: 40px;
-  width: 40px;
-  align-items: center;
+  border: 0px solid yellow;
   font-size: 0px;
-  flex-direction: column;
-  padding: 25px;
-  margin-right: 20px;
-  opacity: 0%;
-
-}
-
-.selectColumn-button:hover {
-  display: inline;
-  border: 0px solid;
-  height: 20px;
-  width: 5px;
-  align-items: center;
-  font-size: 10px;
-  flex-direction: column;
-  padding: 20px;
-  margin-right: 10px;
   opacity: 100%;
 }
 
-h1,h2 {
+.selectColumn-button:hover {
+  border: 2px solid grey;
+  font-size: 0px;
+  opacity: 50%;
+}
+
+h1,
+h2 {
   display: inline;
   color: black;
 }
-.title-frame{
-  padding-top:10px;
+.title-frame {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 100%;
+  padding-left: 0%;
 }
 
-.row-container{
-  display:flex;
-  height:100px;
-  width:100%;
-  align-items:center;
-  padding-left: 25%;
+.row-container {
+  width: 100%;
+  align-items: center;
 }
 
-.select-frame{
-  display:flex;
-  height:10px;
-  width:100%;
-  align-items:center;
-  opacity:100%;
-  padding: 25px 37.5%;
+.select-frame {
+  align-items: center;
 }
 
-.board-frame{
-  display:flex;
-  flex-direction:column;
-  flex-wrap: wrap;
-  /* height:100px; */
-  align-items:center;
-  opacity:100%;
-  padding: 0% 25%;
+.board-frame {
+  translate: 0% -105%;
+}
+@media (min-width: 725px) {
+  .selectColumn-button {
+    background-color: white;
+    height: 425px;
+    width: 50px;
+  }
+}
+
+@media (max-width: 1280px) {
+  .selectColumn-button {
+    background-color: white;
+    height: 425px;
+    width: 52px;
+  }
 }
