@@ -18,6 +18,22 @@ function SelectColumn(props) {
   );
 }
 
+function YesResetGame(props) {
+  return (
+    <div>
+      <div className="yesResetGame-container">
+        <h1>another game?</h1>
+      </div>
+      <div>
+        <button onClick={props.handleClickYes}>Yes</button>
+      </div>
+      <div>
+        <button onClick={props.handleClickNo}>No</button>
+      </div>
+    </div>
+  );
+}
+
 const NUM_ROWS = 6;
 const NUM_COLUMNS = 7;
 
@@ -38,6 +54,7 @@ class Game extends Component {
       counter: true,
       //  = yellow counter
       // r = red counter
+      playing: true,
     };
   }
 
@@ -54,7 +71,6 @@ class Game extends Component {
           ? "displayHolesContainerRed"
           : "displayHolesContainer";
 
-      // console.log(`colIndex is ${colIndex}`)
       return (
         <div
           key={`${colIndex}${rowIndex}`}
@@ -91,7 +107,7 @@ class Game extends Component {
     });
   }
 
-  resetGame(winner) {
+  handleResetGame() {
     const cleanBoard = [
       [0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0],
@@ -101,8 +117,16 @@ class Game extends Component {
       [0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0],
     ];
+
     this.setState({
       board: cleanBoard,
+    });
+  }
+
+  handleClickNo() {
+    console.log("clicking no");
+    this.setState({
+      playing: false,
     });
   }
 
@@ -129,7 +153,7 @@ class Game extends Component {
         (c3 && c3 === c4 && c3 === c5 && c3 === c6)
       ) {
         console.log(`winner! won by horizontal line`);
-        return c3;
+        return this.state.counter ? "red" : "yellow";
       }
     }
 
@@ -148,59 +172,92 @@ class Game extends Component {
         (r2 && r2 === r3 && r3 === r4 && r4 === r5)
       ) {
         console.log(`winner! won by vert line`);
-        return r3;
+        return this.state.counter ? "red" : "yellow";
       }
     }
 
     // check for diagLineSWNE
 
-    // for (let colIndex = 0; colIndex < NUM_COLUMNS; colIndex++) {
-    //   // check for vertLine
-    //   const d0 = boardCheck[colIndex][0];
-    //   const d1 = boardCheck[colIndex + 1][1];
-    //   const d2 = boardCheck[colIndex + 2][2];
-    //   const d3 = boardCheck[colIndex + 3][3];
-    //   const d4 = boardCheck[colIndex + 4][4];
-    //   const d5 = boardCheck[colIndex + 5][5];
+    for (let colIndex = 0; colIndex < 4; colIndex++) {
+      const d0 = boardCheck[colIndex][0];
+      const d1 = boardCheck[colIndex + 1][1];
+      const d2 = boardCheck[colIndex + 2][2];
+      const d3 = boardCheck[colIndex + 3][3];
 
-    //   if (
-    //     (d0 && d0 === d1 && d0 === d2 && d0 === d3) ||
-    //     (d1 && d1 === d2 && d1 === d3 && d1 === d4) ||
-    //     (d2 && d2 === d3 && d3 === d4 && d4 === d5)
-    //   ) {
-    //     console.log(`winner! won by vert line`);
-    //     return d3;
-    //   }
-    // }
+      const e0 = boardCheck[colIndex][1];
+      const e1 = boardCheck[colIndex + 1][2];
+      const e2 = boardCheck[colIndex + 2][3];
+      const e3 = boardCheck[colIndex + 3][4];
+
+      const f0 = boardCheck[colIndex][2];
+      const f1 = boardCheck[colIndex + 1][3];
+      const f2 = boardCheck[colIndex + 2][4];
+      const f3 = boardCheck[colIndex + 3][5];
+
+      if (
+        (d0 && d0 === d1 && d0 === d2 && d0 === d3) ||
+        (e0 && e0 === e1 && e0 === e2 && e0 === e3) ||
+        (f0 && f0 === f1 && f0 === f2 && f0 === f3)
+      ) {
+        console.log(`winner! won by diagonal line SWNE`);
+        alert(`player ${d3 || e3 || f3} has won!`);
+        return this.state.counter ? "red" : "yellow";
+      }
+    }
 
     // check for diagLineNWSE
-    // for (let colIndex = 0; colIndex < NUM_COLUMNS; colIndex++) {
-    //   // check for vertLine
-    //   const d0 = boardCheck[colIndex][0];
-    //   const d1 = boardCheck[colIndex][1];
-    //   const d2 = boardCheck[colIndex][2];
-    //   const d3 = boardCheck[colIndex][3];
-    //   const d4 = boardCheck[colIndex][4];
-    //   const d5 = boardCheck[colIndex][5];
+    for (let colIndex = 6; colIndex > 2; colIndex--) {
+      // check for vertLine
+      const g0 = boardCheck[colIndex][0];
+      const g1 = boardCheck[colIndex - 1][1];
+      const g2 = boardCheck[colIndex - 2][2];
+      const g3 = boardCheck[colIndex - 3][3];
 
-    //   if (
-    //     (d0 && d0 === d1 && d0 === d2 && d0 === d3) ||
-    //     (d1 && d1 === d2 && d1 === d3 && d1 === d4) ||
-    //     (d2 && d2 === d3 && d3 === d4 && d4 === d5)
-    //   ) {
-    //     console.log(`winner! won by vert line`);
-    //     return d3;
-    //   }
-    // }
+      const h0 = boardCheck[colIndex][1];
+      const h1 = boardCheck[colIndex - 1][2];
+      const h2 = boardCheck[colIndex - 2][3];
+      const h3 = boardCheck[colIndex - 3][4];
+
+      const i0 = boardCheck[colIndex][2];
+      const i1 = boardCheck[colIndex - 1][3];
+      const i2 = boardCheck[colIndex - 2][4];
+      const i3 = boardCheck[colIndex - 3][5];
+
+      if (
+        (g0 && g0 === g1 && g0 === g2 && g0 === g3) ||
+        (h0 && h0 === h1 && h0 === h2 && h0 === h3) ||
+        (i0 && i0 === i1 && i0 === i2 && i0 === i3)
+      ) {
+        console.log(`winner! won by diagonal line NWSE`);
+        return this.state.counter ? "red" : "yellow";
+      }
+    }
   }
 
   render() {
     console.log("rendered game");
     let status;
     const winner = this.checkWinner(this.state.board, this.state.counter);
+
+    if (this.state.playing === false) {
+      return (
+        <div>
+          <h1>goodbye!</h1>
+        </div>
+      );
+    }
     if (winner) {
       status = "winner is " + winner + "! do you want to play a new game?";
-      this.resetGame(winner);
+      return (
+        <YesResetGame
+          handleClickYes={() => {
+            this.handleResetGame();
+          }}
+          handleClickNo={() => {
+            this.handleClickNo();
+          }}
+        />
+      );
     } else {
       status = "Next player is " + (this.state.counter ? "yellow" : "red");
     }

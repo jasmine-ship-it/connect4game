@@ -2,40 +2,28 @@
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+body {
+  background-color: white;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.yesNoContainer {
+  padding-top: 10%;
+  /* align-items: center; */
+  height: 50px;
+  width: 100px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+.yesNoContainer:hover {
+  border: 2px solid grey;
+  font-size: 0px;
+  opacity: 50%;
+}
+
+.resetGame-button {
+  border: 1px solid black;
+  border-radius: 10%;
   color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
+  background-color: grey;
 }
 
 .displayHolesContainer {
@@ -55,7 +43,8 @@
 .displayHolesContainerRed {
   display: inline;
   border-radius: 100%;
-  border: 1px solid red;
+  border: 1px solid black;
+  background-color: red;
   height: 20px;
   width: 20px;
   align-items: center;
@@ -69,7 +58,8 @@
 .displayHolesContainerYellow {
   display: inline;
   border-radius: 100%;
-  border: 1px solid yellow;
+  border: 1px solid black;
+  background-color: yellow;
   height: 20px;
   width: 20px;
   align-items: center;
@@ -81,63 +71,54 @@
 }
 
 .selectColumn-button {
-  display: inline;
-  color:yellow;
   border: 0px solid yellow;
-  height: 425px;
-  width: 65px;
-  align-items: center;
   font-size: 0px;
-  flex-direction: column;
-  line-height: 60px;
-  margin-right: 10px;
-  opacity:0%;
+  opacity: 100%;
 }
 
 .selectColumn-button:hover {
-  display: inline;
-  color:yellow;
-  border: 0px solid yellow;
-  height: 425px;
-  width: 65px;
-  align-items: center;
+  border: 2px solid grey;
   font-size: 0px;
-  flex-direction: column;
-  line-height: 60px;
-  margin-right: 10px;
-  opacity:20%;
+  opacity: 50%;
 }
 
-h1,h2 {
+h1,
+h2 {
   display: inline;
   color: black;
 }
-.title-frame{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  opacity:100%;
-  padding-left:0%;
+.title-frame {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 100%;
+  padding-left: 0%;
 }
 
-.row-container{
-  display:flex;
-  /* height:100px; */
-  width:100%;
-  align-items:center;
+.row-container {
+  width: 100%;
+  align-items: center;
 }
 
-.select-frame{
-  opacity:100%;
-  margin-right:2%;
+.select-frame {
+  align-items: center;
 }
 
-.board-frame{
-  display:flex;
-  flex-direction:column;
-  flex-wrap: wrap;
-  align-items:center;
-  opacity:100%;
-  padding: 0% 30%;
+.board-frame {
   translate: 0% -105%;
+}
+@media (min-width: 725px) {
+  .selectColumn-button {
+    background-color: white;
+    height: 425px;
+    width: 50px;
+  }
+}
+
+@media (max-width: 1280px) {
+  .selectColumn-button {
+    background-color: white;
+    height: 425px;
+    width: 52px;
+  }
 }
