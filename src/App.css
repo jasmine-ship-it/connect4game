@@ -25,6 +25,9 @@ body {
   color: white;
   background-color: grey;
 }
+.select-frame {
+  align-items: center;
+}
 
 .displayHolesContainer {
   display: inline;
@@ -70,18 +73,6 @@ body {
   margin-right: 10px;
 }
 
-.selectColumn-button {
-  border: 0px solid yellow;
-  font-size: 0px;
-  opacity: 100%;
-}
-
-.selectColumn-button:hover {
-  border: 2px solid grey;
-  font-size: 0px;
-  opacity: 50%;
-}
-
 h1,
 h2 {
   display: inline;
@@ -100,13 +91,22 @@ h2 {
   align-items: center;
 }
 
-.select-frame {
-  align-items: center;
-}
-
 .board-frame {
   translate: 0% -105%;
 }
+
+.selectColumn-button {
+  border: 0px solid yellow;
+  font-size: 0px;
+  opacity: 100%;
+}
+
+.selectColumn-button:hover {
+  border: 2px solid grey;
+  font-size: 0px;
+  opacity: 50%;
+}
+
 @media (min-width: 725px) {
   .selectColumn-button {
     background-color: white;
