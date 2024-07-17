@@ -1,14 +1,52 @@
 .App {
   text-align: center;
+  background: linear-gradient(135deg, #2c3e50, #4ca1af);
+  border-radius: 15px;
+  padding: 20px;
+  text-align: center;
+  color: #fff;
+  font-family: 'Orbitron', sans-serif;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+  max-width: 500px;
+  margin: 20px auto;
+  position: relative;
+}
+
+h1{
+  font-size: 2em;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  color: #ffffff;
+  text-shadow: 0 0 10px rgba(46, 7, 224, 0.7);
+}
+
+h2{
+  font-size: 2em;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  color: #0f100c;
+  text-shadow: 0 0 10px rgba(254, 254, 254, 0.7);
+}
+
+h3{
+  font-size: 2em;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  color: #c31d14;
+  text-shadow: 0 0 10px rgba(254, 254, 254, 0.7);
 }
 
 body {
   background-color: white;
 }
 
+.playerNameBox{
+ padding-top: 10%;
+}
+
 .yesNoContainer {
   padding-top: 10%;
-  /* align-items: center; */
+  align-items: center;
   height: 50px;
   width: 100px;
 }
@@ -19,6 +57,83 @@ body {
   opacity: 50%;
 }
 
+.yesButton {
+  background: #131313;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1em;
+  color: #fff;
+  text-transform: uppercase;
+  margin: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid rgb(255, 252, 252);
+  box-shadow: 0 0 15px rgba(229, 225, 4, 0.5);
+}
+
+.noButton {
+  background: #131313;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1em;
+  color: #fff;
+  text-transform: uppercase;
+  margin: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid rgb(255, 252, 252);
+  box-shadow: 0 0 15px rgba(229, 225, 4, 0.5);
+}
+
+.yesButton:hover{
+  background: #37c46a;
+}
+
+.noButton:hover{
+  background: #dd1e09;
+}
+
+button:active {
+  transform: scale(0.95);
+}
+
+label {
+  font-size: 2em;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  color: #fafafa;
+  text-shadow: 0 0 10px rgba(30, 17, 16, 0.7);
+  display: block; /* Ensures the label is above the input field */
+}
+
+.submitButton{
+  background: #e74c3c;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1em;
+  color: #fff;
+  text-transform: uppercase;
+  margin: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 1px solid rgb(255, 252, 252);
+  box-shadow: 0 0 15px rgba(231, 76, 60, 0.5);
+}
+
+.yesResetGame-container{
+  border-radius: 15px;
+  padding: 20px;
+  text-align: center;
+  color: #fff;
+  font-family: 'Orbitron', sans-serif;
+  max-width: 500px;
+  margin: 20px auto;
+  position: relative;
+}
+
 .resetGame-button {
   border: 1px solid black;
   border-radius: 10%;
@@ -27,9 +142,10 @@ body {
 }
 
 .displayHolesContainer {
-  display: inline;
-  border-radius: 100%;
-  border: 1px solid grey;
+  display: inline;/* Change display to inline-block for proper sizing */
+  border-radius: 50%;/* Ensures the div is a perfect circle */
+  border: 1px solid rgb(3, 1, 1);
+  background-color: white; /* Fill color */
   height: 20px;
   width: 20px;
   align-items: center;
@@ -38,6 +154,11 @@ body {
   padding: 20px;
   line-height: 60px;
   margin-right: 10px;
+}
+
+@keyframes moveDown {
+  from {top: -200px;}
+  to {top: 0px;}
 }
 
 .displayHolesContainerRed {
@@ -53,6 +174,9 @@ body {
   padding: 20px;
   line-height: 60px;
   margin-right: 10px;
+  position: relative;
+  animation: moveDown 0.25s; /* Apply the animation */
+  animation-fill-mode: forwards; /* Ensure the animation only plays once and retains its final state */
 }
 
 .displayHolesContainerYellow {
@@ -71,20 +195,13 @@ body {
 }
 
 .selectColumn-button {
-  border: 0px solid yellow;
-  font-size: 0px;
-  opacity: 100%;
-}
+  opacity: 0%;
 
-.selectColumn-button:hover {
-  font-size: 0px;
-  opacity: 50%;
 }
 
 h1,
 h2 {
   display: inline;
-  color: black;
 }
 .title-frame {
   display: flex;
@@ -92,6 +209,11 @@ h2 {
   align-items: center;
   opacity: 100%;
   padding-left: 0%;
+  font-size: 1.5em;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+  color: #ffffff;
+  text-shadow: 0 0 10px rgba(11, 3, 34, 0.7);
 }
 
 .row-container {
@@ -106,6 +228,7 @@ h2 {
 .board-frame {
   translate: 0% -105%;
 }
+
 @media (min-width: 725px) {
   .selectColumn-button {
     background-color: white;

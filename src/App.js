@@ -21,25 +21,30 @@ function App() {
 
   return (
     <div className="App">
+      {newPlayers ? <h1>Connect 4</h1> : <h1>Welcome to connect 4</h1>}
       {!newPlayers ? (
-        <div>
+        <div className="playerNameBox">
           <label htmlFor="name">Player 1 : </label>{" "}
           <input
             type="text"
             id="playerOneTextField"
             value={playerOneName}
             onChange={handleChange}
+            className="playerNameTextField"
           />
-          <p>You typed: {playerOneName}</p>
+          <p>{playerOneName}</p>
           <label htmlFor="name">Player 2: </label>
           <input
             type="text"
             id="playerTwoTextField"
             value={playerTwoName}
             onChange={handleChange}
+            className="playerNameTextField"
           />
-          <p>You typed: {playerTwoName}</p>
-          <button onClick={handleSubmit}>Submit</button>
+          <p>{playerTwoName}</p>
+          <button onClick={handleSubmit} className="submitButton">
+            Submit
+          </button>
         </div>
       ) : (
         <Game playerOneName={playerOneName} playerTwoName={playerTwoName} />
@@ -60,13 +65,17 @@ function YesResetGame(props) {
   return (
     <div>
       <div className="yesResetGame-container">
-        <h1>{props.status}</h1>
+        <h2>{props.status}</h2>
       </div>
       <div>
-        <button onClick={props.handleClickYes}>Yes</button>
+        <button onClick={props.handleClickYes} className="yesButton">
+          Yes
+        </button>
       </div>
       <div>
-        <button onClick={props.handleClickNo}>No</button>
+        <button onClick={props.handleClickNo} className="noButton">
+          No
+        </button>
       </div>
     </div>
   );
@@ -126,7 +135,7 @@ class Game extends Component {
     const indexOfFoundLast = columnCurrent.lastIndexOf(foundLast);
 
     if (columnCurrent.length > 6) {
-      alert("column slot is full");
+      // alert("column slot is full");
     } else {
       if (this.state.counter) {
         columnCurrent[indexOfFoundLast + 1] = "y";
@@ -238,7 +247,7 @@ class Game extends Component {
         (f0 && f0 === f1 && f0 === f2 && f0 === f3)
       ) {
         console.log(`winner! won by diagonal line SWNE`);
-        alert(`player ${d3 || e3 || f3} has won!`);
+        // alert(`player ${d3 || e3 || f3} has won!`);
         return this.state.counter ? "red" : "yellow";
       }
     }
@@ -281,13 +290,13 @@ class Game extends Component {
     if (this.state.playing === false) {
       return (
         <div>
-          <h1>goodbye!</h1>
+          <h3>goodbye</h3>
         </div>
       );
     }
     if (winner) {
       const winnerName = this.state.counter ? playerOneName : playerTwoName;
-      status = "winner is " + winnerName + "! do you want to play a new game?";
+      status = "winner is " + winnerName + "! play again?";
       return (
         <YesResetGame
           handleClickYes={() => {
@@ -307,7 +316,7 @@ class Game extends Component {
     return (
       <div>
         <div className="title-frame">
-          <h2>Connect 4</h2>
+          {/* <h1>Connect 4</h1> */}
           <p> {status}</p>
         </div>
 
