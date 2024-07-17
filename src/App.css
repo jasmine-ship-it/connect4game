@@ -77,7 +77,6 @@ body {
 }
 
 .selectColumn-button:hover {
-  border: 2px solid grey;
   font-size: 0px;
   opacity: 50%;
 }
