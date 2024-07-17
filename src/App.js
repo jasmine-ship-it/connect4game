@@ -1,11 +1,49 @@
-import { Component } from "react";
-// import ReactDOM from "react-dom/client";
+import { Component, useState } from "react";
 import "./App.css";
 
 function App() {
+  const [playerOneName, setPlayerOneName] = useState("");
+  const [playerTwoName, setPlayerTwoName] = useState("");
+  const [newPlayers, setNewPlayers] = useState(false);
+
+  const handleChange = (event) => {
+    const { id, value } = event.target;
+    if (id === "playerOneTextField") {
+      setPlayerOneName(value);
+    } else if (id === "playerTwoTextField") {
+      setPlayerTwoName(value);
+    }
+  };
+
+  const handleSubmit = () => {
+    setNewPlayers(!newPlayers);
+  };
+
   return (
     <div className="App">
-      <Game />
+      {!newPlayers ? (
+        <div>
+          <label htmlFor="name">Player 1 : </label>{" "}
+          <input
+            type="text"
+            id="playerOneTextField"
+            value={playerOneName}
+            onChange={handleChange}
+          />
+          <p>You typed: {playerOneName}</p>
+          <label htmlFor="name">Player 2: </label>
+          <input
+            type="text"
+            id="playerTwoTextField"
+            value={playerTwoName}
+            onChange={handleChange}
+          />
+          <p>You typed: {playerTwoName}</p>
+          <button onClick={handleSubmit}>Submit</button>
+        </div>
+      ) : (
+        <Game playerOneName={playerOneName} playerTwoName={playerTwoName} />
+      )}
     </div>
   );
 }
@@ -22,7 +60,7 @@ function YesResetGame(props) {
   return (
     <div>
       <div className="yesResetGame-container">
-        <h1>another game?</h1>
+        <h1>{props.status}</h1>
       </div>
       <div>
         <button onClick={props.handleClickYes}>Yes</button>
@@ -52,7 +90,7 @@ class Game extends Component {
         [0, 0, 0, 0, 0, 0],
       ],
       counter: true,
-      //  = yellow counter
+      // y = yellow counter
       // r = red counter
       playing: true,
     };
@@ -236,6 +274,7 @@ class Game extends Component {
 
   render() {
     console.log("rendered game");
+    const { playerOneName, playerTwoName } = this.props;
     let status;
     const winner = this.checkWinner(this.state.board, this.state.counter);
 
@@ -247,7 +286,8 @@ class Game extends Component {
       );
     }
     if (winner) {
-      status = "winner is " + winner + "! do you want to play a new game?";
+      const winnerName = this.state.counter ? playerOneName : playerTwoName;
+      status = "winner is " + winnerName + "! do you want to play a new game?";
       return (
         <YesResetGame
           handleClickYes={() => {
@@ -256,10 +296,13 @@ class Game extends Component {
           handleClickNo={() => {
             this.handleClickNo();
           }}
+          status={status}
         />
       );
     } else {
-      status = "Next player is " + (this.state.counter ? "yellow" : "red");
+      status =
+        "Next player is " +
+        (this.state.counter ? playerOneName : playerTwoName);
     }
     return (
       <div>
