@@ -24,7 +24,7 @@ function App() {
       {newPlayers ? <h1>Connect 4</h1> : <h1>Welcome to connect 4</h1>}
       {!newPlayers ? (
         <div className="playerNameBox">
-          <label htmlFor="name">Player 1 : </label>{" "}
+          <label htmlFor="playerOneTextField">Player 1 : </label>{" "}
           <input
             type="text"
             id="playerOneTextField"
@@ -33,7 +33,7 @@ function App() {
             className="playerNameTextField"
           />
           <p>{playerOneName}</p>
-          <label htmlFor="name">Player 2: </label>
+          <label htmlFor="playerTwoTextField">Player 2: </label>
           <input
             type="text"
             id="playerTwoTextField"
@@ -135,7 +135,6 @@ class Game extends Component {
     const indexOfFoundLast = columnCurrent.lastIndexOf(foundLast);
 
     if (columnCurrent.length > 6) {
-      // alert("column slot is full");
     } else {
       if (this.state.counter) {
         columnCurrent[indexOfFoundLast + 1] = "y";
@@ -167,6 +166,7 @@ class Game extends Component {
 
     this.setState({
       board: cleanBoard,
+      counter:true
     });
   }
 
@@ -179,9 +179,9 @@ class Game extends Component {
 
   checkWinner(board, counter) {
     const boardCheck = board.slice();
-    console.log("checking for winner");
+    console.log(`checking for winner`)
     const currentPlayer = counter ? "y" : "r";
-    console.log(currentPlayer);
+    console.log(`currentPlayer is ${currentPlayer}`);
 
     for (let rowIndex = 0; rowIndex < NUM_ROWS; rowIndex++) {
       // check for horz combinations
@@ -200,7 +200,7 @@ class Game extends Component {
         (c3 && c3 === c4 && c3 === c5 && c3 === c6)
       ) {
         console.log(`winner! won by horizontal line`);
-        return this.state.counter ? "red" : "yellow";
+        return c3;
       }
     }
 
@@ -219,11 +219,11 @@ class Game extends Component {
         (r2 && r2 === r3 && r3 === r4 && r4 === r5)
       ) {
         console.log(`winner! won by vert line`);
-        return this.state.counter ? "red" : "yellow";
+        return r2;//Return 'y' or 'r'
       }
     }
 
-    // check for diagLineSWNE
+    // check for diagLine NW->SE
 
     for (let colIndex = 0; colIndex < 4; colIndex++) {
       const d0 = boardCheck[colIndex][0];
@@ -241,20 +241,21 @@ class Game extends Component {
       const f2 = boardCheck[colIndex + 2][4];
       const f3 = boardCheck[colIndex + 3][5];
 
-      if (
-        (d0 && d0 === d1 && d0 === d2 && d0 === d3) ||
-        (e0 && e0 === e1 && e0 === e2 && e0 === e3) ||
-        (f0 && f0 === f1 && f0 === f2 && f0 === f3)
-      ) {
-        console.log(`winner! won by diagonal line SWNE`);
-        // alert(`player ${d3 || e3 || f3} has won!`);
-        return this.state.counter ? "red" : "yellow";
+      if (d0 && d0 === d1 && d0 === d2 && d0 === d3) {
+        return d0;//Return 'y' or 'r'
       }
+      else if(e0 && e0 === e1 && e0 === e2 && e0 === e3)
+      {
+          return e0;
+      }
+      else if(f0 && f0 === f1 && f0 === f2 && f0 === f3)
+      {
+          return f0;
+        }
     }
 
-    // check for diagLineNWSE
+    // check for diagLineNE -> SW
     for (let colIndex = 6; colIndex > 2; colIndex--) {
-      // check for vertLine
       const g0 = boardCheck[colIndex][0];
       const g1 = boardCheck[colIndex - 1][1];
       const g2 = boardCheck[colIndex - 2][2];
@@ -270,14 +271,17 @@ class Game extends Component {
       const i2 = boardCheck[colIndex - 2][4];
       const i3 = boardCheck[colIndex - 3][5];
 
-      if (
-        (g0 && g0 === g1 && g0 === g2 && g0 === g3) ||
-        (h0 && h0 === h1 && h0 === h2 && h0 === h3) ||
-        (i0 && i0 === i1 && i0 === i2 && i0 === i3)
-      ) {
-        console.log(`winner! won by diagonal line NWSE`);
-        return this.state.counter ? "red" : "yellow";
+      if (g0 && g0 === g1 && g0 === g2 && g0 === g3) {
+        return g0;//Return 'y' or 'r'
       }
+      else if(h0 && h0 === h1 && h0 === h2 && h0 === h3)
+      {
+          return h0;
+      }
+      else if(i0 && i0 === i1 && i0 === i2 && i0 === i3)
+      {
+          return i0;
+        }
     }
   }
 
@@ -286,7 +290,7 @@ class Game extends Component {
     const { playerOneName, playerTwoName } = this.props;
     let status;
     const winner = this.checkWinner(this.state.board, this.state.counter);
-
+    console.log(`returned value is ${winner}`)
     if (this.state.playing === false) {
       return (
         <div>
@@ -295,8 +299,8 @@ class Game extends Component {
       );
     }
     if (winner) {
-      const winnerName = this.state.counter ? playerOneName : playerTwoName;
-      status = "winner is " + winnerName + "! play again?";
+      const winnerName = winner === 'y' ? playerOneName : playerTwoName;
+      status = "Winner is " + winnerName + "! Play again?";
       return (
         <YesResetGame
           handleClickYes={() => {
